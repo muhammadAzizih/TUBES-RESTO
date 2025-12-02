@@ -9,7 +9,7 @@ void pembayaran(int totalPesanan, int totalBooking)
 
     printf("\n=== MENU PEMBAYARAN ===\n");
     printf("1. Pembayaran Pesanan\n");
-    printf("2. Pembayaran Booking\n");
+    printf("2. Pembayaran booking\n");
     printf("Pilih: ");
     scanf("%d", &pilih);
 
@@ -81,7 +81,7 @@ void pembayaran(int totalPesanan, int totalBooking)
         }
 
         // SIMPAN RIWAYAT PESANAN
-        FILE *file = fopen("riwayat_pesanan.txt", "a");
+        FILE *file = fopen("riwayat.txt", "a");
         fprintf(file, "Pembayaran Pesanan = Rp %d\n", totalPesanan);
         fclose(file);
 
@@ -89,7 +89,7 @@ void pembayaran(int totalPesanan, int totalBooking)
     }
 
     // ============================================
-    // 2. PEMBAYARAN BOOKING (TANPA PANJAR)
+    // 2. PEMBAYARAN BOOKING 
     // ============================================
     else if (pilih == 2)
     {
@@ -158,7 +158,7 @@ void pembayaran(int totalPesanan, int totalBooking)
         }
 
         // SIMPAN RIWAYAT BOOKING
-        FILE *file = fopen("riwayat_booking.txt", "a");
+        FILE *file = fopen("riwayat.txt", "a");
         fprintf(file, "Pembayaran Booking = Rp %d\n", totalBooking);
         fclose(file);
 

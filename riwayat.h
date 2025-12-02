@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-void lihatRiwayat() {
+void lihatRiwayat()
+{
     char line[200];
     int lineCount = 0;
 
@@ -17,21 +18,26 @@ void lihatRiwayat() {
     printf("\n-----------------------------------------------------------------\n");
     printf("                  RIWAYAT PESANAN MAKANAN                        \n");
     printf("-----------------------------------------------------------------\n");
-    
+
     FILE *p = fopen("pesanan.txt", "r");
-    
-    if (!p) {
+
+    if (!p)
+    {
         printf("   [!] Belum ada riwayat pesanan makanan.\n");
-    } else {
+    }
+    else
+    {
         lineCount = 0;
-        
-        while (fgets(line, sizeof(line), p)) {
+
+        while (fgets(line, sizeof(line), p))
+        {
             lineCount++;
             printf("   %d. %s", lineCount, line);
         }
         fclose(p);
-        
-        if (lineCount == 0) {
+
+        if (lineCount == 0)
+        {
             printf("   [!] File kosong - belum ada pesanan.\n");
         }
     }
@@ -40,22 +46,27 @@ void lihatRiwayat() {
     printf("\n-----------------------------------------------------------------\n");
     printf("                    RIWAYAT BOOKING MEJA                         \n");
     printf("-----------------------------------------------------------------\n");
-    
+
     FILE *b = fopen("booking.txt", "r");
-    
-    if (!b) {
+
+    if (!b)
+    {
         printf("   [!] Belum ada riwayat booking meja.\n");
-    } else {
+    }
+    else
+    {
         lineCount = 0;
-        
-        while (fgets(line, sizeof(line), b)) {
+
+        while (fgets(line, sizeof(line), b))
+        {
             lineCount++;
             line[strcspn(line, "\n")] = 0;
             printf("   %d. %s\n", lineCount, line);
         }
         fclose(b);
-        
-        if (lineCount == 0) {
+
+        if (lineCount == 0)
+        {
             printf("   [!] File kosong - belum ada booking.\n");
         }
     }
@@ -64,30 +75,40 @@ void lihatRiwayat() {
     printf("\n-----------------------------------------------------------------\n");
     printf("            RIWAYAT PEMBAYARAN & PEMBATALAN                      \n");
     printf("-----------------------------------------------------------------\n");
-    
+
     FILE *r = fopen("riwayat.txt", "r");
-    
-    if (!r) {
+
+    if (!r)
+    {
         printf("   [!] Belum ada riwayat pembayaran atau pembatalan.\n");
-    } else {
+    }
+    else
+    {
         lineCount = 0;
-        
-        while (fgets(line, sizeof(line), r)) {
+
+        while (fgets(line, sizeof(line), r))
+        {
             lineCount++;
             line[strcspn(line, "\n")] = 0;
-            
+
             // Tambahkan indicator berdasarkan jenis transaksi
-            if (strstr(line, "Pembayaran")) {
+            if (strstr(line, "Pembayaran"))
+            {
                 printf("   %d. [LUNAS] %s\n", lineCount, line);
-            } else if (strstr(line, "dibatalkan")) {
+            }
+            else if (strstr(line, "dibatalkan"))
+            {
                 printf("   %d. [BATAL] %s\n", lineCount, line);
-            } else {
+            }
+            else
+            {
                 printf("   %d. %s\n", lineCount, line);
             }
         }
         fclose(r);
-        
-        if (lineCount == 0) {
+
+        if (lineCount == 0)
+        {
             printf("   [!] File kosong - belum ada transaksi.\n");
         }
     }
@@ -98,9 +119,10 @@ void lihatRiwayat() {
 }
 
 // ========== FUNGSI HAPUS RIWAYAT ==========
-void hapusRiwayat(int *totalPesanan, int *totalBooking, int *panjar) {
+void hapusRiwayat(int *totalPesanan, int *totalBooking)
+{
     char konfirmasi;
-    
+
     printf("\n");
     printf("================================================================\n");
     printf("                    HAPUS SEMUA RIWAYAT                          \n");
@@ -110,46 +132,57 @@ void hapusRiwayat(int *totalPesanan, int *totalBooking, int *panjar) {
     printf("   - Riwayat booking meja\n");
     printf("   - Riwayat pembayaran dan pembatalan\n");
     printf("\n================================================================\n");
-    
+
     printf("\nApakah Anda yakin ingin menghapus SEMUA riwayat? (y/n): ");
     scanf(" %c", &konfirmasi);
-    
-    if (konfirmasi == 'y' || konfirmasi == 'Y') {
+
+    if (konfirmasi == 'y' || konfirmasi == 'Y')
+    {
         // Hapus semua file riwayat
         int hapusPesanan = remove("pesanan.txt");
         int hapusBooking = remove("booking.txt");
         int hapusRiwayat = remove("riwayat.txt");
-        
+
         // Reset semua variabel ke 0
         *totalPesanan = 0;
         *totalBooking = 0;
-        *panjar = 0;
-        
+       
+
         printf("\n================================================================\n");
-        
+
         // Cek hasil penghapusan
-        if (hapusPesanan == 0) {
+        if (hapusPesanan == 0)
+        {
             printf("   [OK] Riwayat pesanan berhasil dihapus\n");
-        } else {
+        }
+        else
+        {
             printf("   [!] Riwayat pesanan tidak ditemukan atau sudah kosong\n");
         }
-        
-        if (hapusBooking == 0) {
+
+        if (hapusBooking == 0)
+        {
             printf("   [OK] Riwayat booking berhasil dihapus\n");
-        } else {
+        }
+        else
+        {
             printf("   [!] Riwayat booking tidak ditemukan atau sudah kosong\n");
         }
-        
-        if (hapusRiwayat == 0) {
+
+        if (hapusRiwayat == 0)
+        {
             printf("   [OK] Riwayat transaksi berhasil dihapus\n");
-        } else {
+        }
+        else
+        {
             printf("   [!] Riwayat transaksi tidak ditemukan atau sudah kosong\n");
         }
-        
+
         printf("\n   Semua data telah direset!\n");
         printf("================================================================\n\n");
-        
-    } else {
+    }
+    else
+    {
         printf("\n================================================================\n");
         printf("   Penghapusan riwayat dibatalkan.\n");
         printf("================================================================\n\n");
