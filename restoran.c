@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "pesanMakanan.h"
 #include "booking.h"
 #include "pembayaran.h"
 #include "riwayat.h"
+#include "batalpesanan.h"
 
 int totalPesanan = 0;
 int totalBooking = 0;
@@ -20,10 +20,12 @@ int main()
         printf("=====================================\n");
 
         printf("1. Pesan Makanan\n");
-        printf("2. Booking Meja\n");
-        printf("3. Pembayaran\n");
-        printf("4. Lihat Riwayat\n");
-        printf("5. Keluar\n");
+        printf("2. batalpesanan\n");
+        printf("3. Booking Meja\n");
+        printf("4. Pembayaran\n");
+        printf("5. Lihat Riwayat\n");
+        printf("6. hapus riwayat\n");
+        printf("7. Keluar\n");
         printf("Pilih: ");
         scanf("%d", &pilih);
 
@@ -34,18 +36,26 @@ int main()
             break;
 
         case 2:
-            totalBooking = bookingMeja();
+            batalPesanan(&totalPesanan);
             break;
 
         case 3:
-            pembayaran(totalPesanan, totalBooking);
+            totalBooking = bookingMeja();
             break;
 
         case 4:
-            lihatRiwayat();
+            pembayaran(totalPesanan, totalBooking);
             break;
 
         case 5:
+            lihatRiwayat();
+            break;
+        
+        case 6: 
+            hapusRiwayat(&totalPesanan,&totalBooking);
+            break;    
+
+        case 7:
             printf("==================================\n");
             printf("Terima kasih sudah berkunjung!\n");
             printf("==================================\n");
@@ -55,7 +65,7 @@ int main()
             printf("Pilihan tidak valid.\n");
         }
 
-    } while (pilih != 5);
+    } while (pilih != 7);
 
     return 0;
 }

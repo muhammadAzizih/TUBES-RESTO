@@ -10,18 +10,49 @@ int bookingMeja()
     int totalMakanan = 0;
 
     printf("\n--- BOOKING MEJA ---\n");
+
     printf("Nama: ");
     scanf(" %s", nama);
 
-    printf("Tanggal (dd/mm/yyyy): ");
-    scanf(" %s", tanggal);
+    while (1)
+    {
+        printf("Tanggal (dd/mm/yyyy): ");
+        scanf(" %s", tanggal);
 
-    printf("Jam (0-23): ");
-    scanf(" %d", &jam);
+        int d, m, y;
+        if (sscanf(tanggal, "%d/%d/%d", &d, &m, &y) == 3)
+        {
+            if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y == 2025)
+            {
+                break;
+            }
+        }
+        printf("Error: Format tanggal salah! Contoh: 21/02/2025\n");
+    }
 
-    printf("Jumlah orang: ");
-    scanf(" %d", &orang);
+    while (1)
+    {
+        printf("Jam (7-23): ");
+        scanf("%d", &jam);
 
+        if (jam >= 7 && jam <= 23)
+            break;
+
+        printf("Error: Jam harus antara 7 sampai 23!\n");
+    }
+
+    while (1)
+    {
+        printf("Jumlah orang (1-15): ");
+        scanf("%d", &orang);
+
+        if (orang >= 1 && orang <= 15)
+            break;
+
+        printf("Error: Jumlah orang harus 1-15!\n");
+    }
+
+    // ------------------ INPUT RUANGAN ------------------
     printf("Ruangan (indoor/outdoor): ");
     scanf(" %s", ruangan);
 
@@ -65,14 +96,11 @@ int bookingMeja()
         }
     }
 
-    char pilih;
-    printf("\nApakah ingin sekalian pesan makanan? (y/n): ");
-    scanf(" %c", &pilih);
+    // ------------------ MASUK PESAN MAKANAN ------------------
+    printf("\n--- Silakan Tulis Pesanan Anda ---\n");
+    totalMakanan = pesanMakanan();
 
-    if (pilih == 'y' || pilih == 'Y')
-        totalMakanan = pesanMakanan();
-
-    // Simpan ke file
+    // ------------------ SIMPAN BOOKING ------------------
     FILE *file = fopen("booking.txt", "a");
     if (file == NULL)
     {
@@ -81,18 +109,18 @@ int bookingMeja()
     }
 
     fprintf(file,
-            "Booking: %s | %s | %d org | Meja %d | Ruangan: %s | Total Makanan: Rp %d\n",
-            nama, tanggal, orang, meja, ruangan, totalMakanan);
+            "Booking: %s | %s | %d org | Jam %d | Meja %d | Ruangan: %s | Total Makanan: Rp %d\n",
+            nama, tanggal, orang, jam, meja, ruangan, totalMakanan);
 
     fclose(file);
 
     printf("\nBooking disimpan dengan total makanan Rp %d\n", totalMakanan);
+    printf("Silakan lakukan pembayaran di halaman Pembayaran.\n");
 
+    // ------------------ KEBIJAKAN ------------------
     printf("\n--- KEBIJAKAN BOOKING ---\n");
-    printf("Mohon diperhatikan bahwa meja hanya akan ditahan selama 20 menit");
-    printf("dari waktu reservasi. Jika terjadi keterlambatan atau tidak hadir,");
-    printf("restoran berhak membatalkan booking Anda karena kemungkinan");
-    printf("akan ada reservasi berikutnya yang menggunakan meja tersebut.\n");
+    printf("Meja hanya ditahan selama 20 menit dari waktu reservasi.\n");
+    printf("Jika terlambat atau tidak hadir, booking dapat dibatalkan.\n");
 
     return totalMakanan;
 }
