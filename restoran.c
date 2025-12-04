@@ -38,7 +38,7 @@ int main()
         case 2:
             batalPesanan(&totalPesanan);
             break;
-
+  
         case 3:
             totalBooking = bookingMeja();
             break;

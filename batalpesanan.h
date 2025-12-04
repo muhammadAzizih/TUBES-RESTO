@@ -1,6 +1,3 @@
-#ifndef BATAL_PESANAN_H
-#define BATAL_PESANAN_H
-
 #include <stdio.h>
 
 void batalPesanan(int *totalPesanan)
@@ -22,5 +19,3 @@ void batalPesanan(int *totalPesanan)
     // Reset total pesanan
     *totalPesanan = 0;
 }
-
-#endif
